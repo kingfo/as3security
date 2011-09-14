@@ -47,7 +47,7 @@ ActionScript 3 Security Utilities provides some common solutions for security.
 
 * FunctionWhitelist.js: (1)
 * FunctionWhitelist.as: (2)
-* CrossDomainWhitelist.as + whitelist.xml(DEFAULT): (3),(6),((4)+(5))
+* CrossDomainWhitelist.as + whitelist.xml: (3),(6),[(4)+(5)]
 * CrossDomain.xml: (3),(4),(6) see:[Cross-domain policy file specification](http://www.adobe.com/devnet/articles/crossdomain_policy_file_spec.html "Adobe Developer Connection")
 
 About "whitelist.xml"
@@ -55,29 +55,39 @@ About "whitelist.xml"
 same as _Cross-domain policy_ :
 
 ###  Element specification
-#### _root element_ name is not required
+ 
+_root element_ name is not required
+  
 #### _allow-access-from_ 
 * _allow-access-from_ grants a requesting domain access to read data from the target domain
+
 ```html
 <?xml version="1.0" encoding="utf-8" ?>
 <domain-policy>
 	<allow-access-from domain="kingfo.github.com"/>
 </domain-policy>
 ```
+
 * although multiple domains can be given access with one _allow-access-from_ element by using a wildcard (__*__)
+
 ```html
 <?xml version="1.0" encoding="utf-8" ?>
 <domain-policy>
 	<allow-access-from domain="*"/>
 </domain-policy>
 ```
+
 ```html
 <?xml version="1.0" encoding="utf-8" ?>
 <domain-policy>
 	<allow-access-from domain="*.github.com"/>
 </domain-policy>
 ```
+
+
 * Child of _root element_
+
+
 
 ##### Attributes
 * domain: Specifies a requesting domain to be granted access. 
