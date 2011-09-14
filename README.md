@@ -90,9 +90,22 @@ _root element_ name is not required
 
 
 ##### Attributes
-* domain: Specifies a requesting domain to be granted access. 
-   * Both named __domains__ and __IP addresses__  are acceptable values.
-   * __Subdomains__ are considered different domains
+###### domain
+
+Specifies a requesting domain to be granted access. 
+   
+* Both named __domains__ and __IP addresses__  are acceptable values.
+* __Subdomains__ are considered different domains
+
+###### secure
+
+ Specifies whether access is granted only to HTTPS 
+documents from the specified origin (true) or to all documents from the specified origin (false).
+
+* If secure is not specified in an HTTPS policy file, it defaults to true.
+* Using false in an HTTPS policy file is not recommended because this compromises the security offered by HTTPS
+
+
 #####  Matching rule
 * Individual named domains or subdomains must match exactly.
 * Explicit IP addresses do not match named domains, even if they refer to the same host
