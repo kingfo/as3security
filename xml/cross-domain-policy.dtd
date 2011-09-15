@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- AS3Security DTD for whitelist policy files -->
+<!-- Copyright (c) 2011, Kingfo oicuicu@gmail.com. -->
+
+<!ELEMENT whitelist-policy (allow-access-from*,allow-request-from*)>
+
+<!ELEMENT allow-access-from EMPTY>
+<!ATTLIST allow-access-from domain CDATA #REQUIRED>
+<!ATTLIST allow-access-from secure (true|false) "true">
+
+<!ELEMENT allow-request-from EMPTY>
+<!ATTLIST allow-request-from application CDATA #REQUIRED>
+<!ATTLIST allow-request-from secure (true|false) "true">
+
+<!-- End of file. -->

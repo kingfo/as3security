@@ -3,9 +3,10 @@ package security {
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.SecurityErrorEvent;
-	import flash.external.ExternalInterface;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import utils.location.getLocation;
+	import utils.string.trim;
 	/**
 	 * ...
 	 * @author KingFo (telds kingfo)
@@ -25,7 +26,7 @@ package security {
 			swfURL = clearTrailingSlash(loaderInfo.loaderURL);
 			swfParentPath = getParentPath(swfURL);
 			
-			pageURL = clearTrailingSlash(getLocation());
+			pageURL = clearTrailingSlash(getLocation().href);
 			pageParentPath = getParentPath(pageURL);
 			pageDomain = getDomain(pageURL);
 			
@@ -37,15 +38,6 @@ package security {
 			
 		}
 		
-		private function getLocation():String {
-			var url:String;
-			if (ExternalInterface.available) {
-				url = ExternalInterface.call("window.location.href.toString");
-			}else {
-				throw new Error("Request failed. External interface is not available for this container. If you're trying to use it locally, try using it through an HTTP address.");
-			}
-			return url;
-		}
 		
 		
 		private function clearTrailingSlash(url:String):String {
@@ -78,12 +70,12 @@ package security {
 			var approvedDomains: Array = [];
 			var d:String;
 			for each(var path:XML in xml['allow-access-from']) {
-				d = String(path.@domain).replace(/^\s+|\s+$/g, "");
-				if (d == "*") {
-					applyCallback(true, 'insecurePolicy');
-					return;
-				}
+				d = trim(path.@domain);
 				approvedDomains.push(d); //e.g. ["*.github.com" , "www.xintend.com", "app.xintend.com"]
+			}
+			if (approvedDomains.indexOf("*", 0) > -1) {
+				applyCallback(true, 'insecurePolicy');
+				return;
 			}
 			if (approvedDomains.length < 1) applyCallback(false, "unspecifiedDomain");
 			var allowedDomainsString:String = approvedDomains.join("|"); //e.g. "*.github.com|www.xintend.com|app.xintend.com"
@@ -119,10 +111,6 @@ package security {
 						message:msg
 						});
 		}
-		
-		
-		//exec /^(?:(?P<scheme>\w+)://)?(?:(?P<login>\w+):(?P<pass>\w+)@)?(?P<host>(?:(?P<subdomain>[\w\.]+)\.)?(?P<domain>\w+\.(?P<extension>\w+)))(?::(?P<port>\d+))?(?P<path>[\w/%]*/(?P<file>\w+(?:\.\w+)?)?)?(?:\?(?P<arg>[\w=&]+))?(?:#(?P<anchor>\w+))?/g
-		
 		
 		private var policyFile:String;
 		private var callback:Function;

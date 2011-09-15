@@ -52,11 +52,11 @@ ActionScript 3 Security Utilities provides some common solutions for security.
 
 About "whitelist.xml"
 ---------------------
-same as _Cross-domain policy_ :
+similar to _Cross-domain policy_ :
 
 ###  Element specification
  
-_root element_ name is not required
+_root element_ name is not be required
   
 #### _allow-access-from_ 
 * _allow-access-from_ grants a requesting domain access to read data from the target domain
@@ -96,15 +96,6 @@ Specifies a requesting domain to be granted access.
    
 * Both named __domains__ and __IP addresses__  are acceptable values.
 * __Subdomains__ are considered different domains
-
-###### secure
-
- Specifies whether access is granted only to HTTPS 
-documents from the specified origin (true) or to all documents from the specified origin (false).
-
-* If secure is not specified in an HTTPS policy file, it defaults to true.
-* Using false in an HTTPS policy file is not recommended because this compromises the security offered by HTTPS
-
 
 #####  Matching rule
 * Individual named domains or subdomains must match exactly.
